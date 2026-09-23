@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api request Project</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body style="color:white; background: black;">
+    <div class="card">
+        <button class="picButton">Watch Pic</button>
+        <button class="followersButton">Watch Followers</button>
+    </div>
+    <div class="div">
+        <p class="followers"></p>
+        <p class="pic"></p>
+    </div>
+    <script>
+        let data ;
+        const xml=new XMLHttpRequest();
+        console.log("here")
+        xml.open('Get',"https://api.github.com/users/hiteshchoudhary")
+        xml.onreadystatechange=function(){
+            console.log(xml.readyState)
+            if (xml.readyState===4){
+                data=JSON.parse(this.responseText);
+            }
+        }
+        xml.send()
+        const pic=document.getElementsByClassName('picButton');
+        const follow=document.getElementsByClassName('followersButton');
+        follow[0].addEventListener('click',function(e){
+            e.preventDefault()
+            document.querySelector('.followers').innerHTML = `${data.followers}`;
+        })
+        pic[0].addEventListener('click',function(e){
+            e.preventDefault()
+            document.querySelector('.pic').innerHTML=`<image src="${data.avatar_url}" width="200">`        
+        })
+
+    </script>
+</body>
+</html>
